@@ -1,26 +1,50 @@
 export const scheduledActivities = [
   {
     id: 1,
+    project_proposal_id: null,
+    projectTitle: 'N/A',
+    event_type: 'Review',
     title: 'Review Board Meeting',
-    date: '2026-10-05',
-    type: 'review',
-    project: 'Multiple',
-    assigned: 'Coordinator Panel'
+    description: 'Quarterly review of all ongoing extension projects.',
+    start_date: '2026-10-05',
+    end_date: '',
+    deadline: '',
+    timelineText: '09:00 AM - 12:00 PM',
+    responsibleUnitOrAssignedPerson: 'Coordinator Panel',
+    status: 'Scheduled',
+    created_by: 'Coordinator',
+    updated_at: '2026-04-01T10:00:00Z'
   },
   {
     id: 2,
+    project_proposal_id: 'PRJ-2026-002',
+    projectTitle: 'Digital Livelihood for Brgy. San Juan',
+    event_type: 'Activity',
     title: 'Digital Livelihood Training Day 1',
-    date: '2026-11-05',
-    type: 'activity',
-    project: 'PRJ-2026-002',
-    assigned: 'Engr. Juan Dela Cruz'
+    description: 'First day of training covering basic digital skills.',
+    start_date: '2026-11-05',
+    end_date: '2026-11-05',
+    deadline: '',
+    timelineText: '08:00 AM - 05:00 PM',
+    responsibleUnitOrAssignedPerson: 'Engr. Juan Dela Cruz',
+    status: 'Scheduled',
+    created_by: 'Coordinator',
+    updated_at: '2026-04-01T10:30:00Z'
   },
   {
     id: 3,
+    project_proposal_id: null,
+    projectTitle: 'N/A',
+    event_type: 'Deadline',
     title: 'Submit Q3 Summary Report',
-    date: '2026-10-15',
-    type: 'deadline',
-    project: 'N/A',
-    assigned: 'Coordinator'
+    description: 'Mandatory submission of the Q3 summary report for all projects.',
+    start_date: '',
+    end_date: '',
+    deadline: '2026-10-15',
+    timelineText: '',
+    responsibleUnitOrAssignedPerson: 'Coordinator',
+    status: 'Scheduled',
+    created_by: 'Coordinator',
+    updated_at: '2026-04-01T11:00:00Z'
   }
 ];
