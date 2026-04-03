@@ -8,7 +8,7 @@ const ActivityTrainingReportPage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="max-w-4xl mx-auto pb-12 text-sm md:text-base">
+        <div className="max-w-5xl mx-auto pb-12 text-sm md:text-base">
             <PageHeader title="Encode Activity / Training Report" subtitle="Record comprehensive accomplishment details for extension efforts." />
 
             <div className="space-y-6">
