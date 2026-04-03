@@ -7,11 +7,17 @@ const EvaluationMonitoringPage = () => {
     const navigate = useNavigate();
 
     const defaultCriteria = [
-        { id: 1, text: 'Relevance of the topics to current needs.' },
-        { id: 2, text: 'Expertise and mastery of the resource speaker.' },
-        { id: 3, text: 'Clarity of instructions and materials provided.' },
-        { id: 4, text: 'Adequacy of the venue and facilities.' },
-        { id: 5, text: 'Overall satisfaction with the activity.' }
+        { id: 'cat1', type: 'category', text: 'I. Information Dissemination' },
+        { id: 'q1', type: 'question', text: 'a. Timeliness of sending Invites' },
+        { id: 'q2', type: 'question', text: 'b. Adequacy of information dissemination' },
+        { id: 'cat2', type: 'category', text: 'II. Design of the Event' },
+        { id: 'q3', type: 'question', text: 'a. Program/Order of the activities' },
+        { id: 'q4', type: 'question', text: 'b. Quality and Relevance of the Activities' },
+        { id: 'q5', type: 'question', text: 'c. Time allotment/pacing' },
+        { id: 'cat3', type: 'category', text: 'III. Outcomes of the Event' },
+        { id: 'q6', type: 'question', text: 'a. Attendance of participants' },
+        { id: 'q7', type: 'question', text: 'b. Participation to activities' },
+        { id: 'q8', type: 'question', text: 'c. Engagement and Interaction' }
     ];
 
     const [project, setProject] = useState('');
@@ -53,10 +59,29 @@ const EvaluationMonitoringPage = () => {
         setEvaluations(evaluations.map(e => e.id === evalId ? { ...e, [field]: value } : e));
     };
 
-    const handleAddCriteria = (evalId) => {
+    const handleAddCriteria = (evalId, categoryId = null) => {
         setEvaluations(evaluations.map(e => {
             if (e.id === evalId) {
-                return { ...e, criteriaList: [...e.criteriaList, { id: Date.now(), text: 'New Criteria Question' }] };
+                if (!categoryId) {
+                    return { ...e, criteriaList: [...e.criteriaList, { id: Date.now(), type: 'question', text: 'New Question' }] };
+                }
+                const catIndex = e.criteriaList.findIndex(c => c.id === categoryId);
+                let insertIndex = catIndex + 1;
+                while (insertIndex < e.criteriaList.length && e.criteriaList[insertIndex].type !== 'category') {
+                    insertIndex++;
+                }
+                const newList = [...e.criteriaList];
+                newList.splice(insertIndex, 0, { id: Date.now(), type: 'question', text: 'New Question' });
+                return { ...e, criteriaList: newList };
+            }
+            return e;
+        }));
+    };
+
+    const handleAddCategory = (evalId) => {
+        setEvaluations(evaluations.map(e => {
+            if (e.id === evalId) {
+                return { ...e, criteriaList: [...e.criteriaList, { id: Date.now(), type: 'category', text: 'New Category Header' }] };
             }
             return e;
         }));
@@ -92,7 +117,7 @@ const EvaluationMonitoringPage = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto pb-12 text-sm md:text-base">
+        <div className="max-w-5xl mx-auto pb-12 text-sm md:text-base">
             <PageHeader title="Submit Evaluation / Monitoring Data" subtitle="Encode client feedback using F-EXT-007 schema." />
 
             <div className="space-y-6">
@@ -157,15 +182,46 @@ const EvaluationMonitoringPage = () => {
                             </div>
                         </div>
 
-                        <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-4">
+                        <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
                             <h4 className="font-bold text-gray-800">Scoring Matrix</h4>
-                            <button className="text-blue-600 hover:text-blue-800 text-xs flex items-center font-medium" onClick={() => handleAddCriteria(ev.id)}><Plus className="w-3 h-3 mr-1"/> Add Custom Criteria</button>
+                            <button className="text-emerald-600 hover:text-emerald-800 text-xs flex items-center font-medium" onClick={() => handleAddCategory(ev.id)}><Plus className="w-3 h-3 mr-1"/> Add Category</button>
+                        </div>
+                        <div className="hidden sm:flex justify-between items-end pb-2 mb-2">
+                            <div className="flex-1 pr-4"><span className="font-bold text-gray-800">Criteria</span></div>
+                            <div className="flex items-center space-x-2 shrink-0">
+                                {[
+                                    { score: 1, label: 'Poor' },
+                                    { score: 2, label: 'Fair' },
+                                    { score: 3, label: 'Satisfied' },
+                                    { score: 4, label: 'Very Sat.' },
+                                    { score: 5, label: 'Excellent' }
+                                ].map(({score, label}) => (
+                                    <div key={score} className="flex flex-col items-center justify-end w-12 md:w-16 text-center">
+                                        <span className="text-[10px] text-gray-500 leading-tight mb-1">{label}</span>
+                                        <span className="text-xs font-bold text-gray-700">{score}</span>
+                                    </div>
+                                ))}
+                                <div className="w-4 ml-4"></div>
+                            </div>
                         </div>
                         <div className="space-y-4 mb-6">
                             {ev.criteriaList.map((criteria, i) => (
-                                <div key={criteria.id} className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-100 pb-4">
+                                criteria.type === 'category' ? (
+                                    <div key={criteria.id} className="flex items-center justify-between border-b border-gray-200 bg-[#e8f3e8] px-2 py-2 mb-2">
+                                        <input 
+                                            type="text" 
+                                            className="flex-1 text-sm font-bold text-gray-800 bg-transparent border-none focus:ring-0 px-2" 
+                                            value={criteria.text} 
+                                            onChange={(e) => handleCriteriaChange(ev.id, criteria.id, e.target.value)} 
+                                        />
+                                        <div className="flex items-center space-x-4 shrink-0">
+                                            <button className="text-blue-600 hover:text-blue-800 text-xs flex items-center font-medium shrink-0" onClick={() => handleAddCriteria(ev.id, criteria.id)}><Plus className="w-3 h-3 mr-1"/> Add Question</button>
+                                            <button className="text-gray-400 hover:text-red-500 shrink-0" onClick={() => handleRemoveCriteria(ev.id, criteria.id)}><Trash2 className="w-4 h-4" /></button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                <div key={criteria.id} className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-100 pb-4 pl-4 sm:pl-6">
                                     <div className="flex-1 pr-4 mb-2 sm:mb-0 flex items-start space-x-2">
-                                        <span className="text-sm font-medium text-gray-800 mt-2">{i+1}.</span>
                                         <input 
                                             type="text" 
                                             className="wireframe-input flex-1 text-sm bg-gray-50 focus:bg-white" 
@@ -173,9 +229,9 @@ const EvaluationMonitoringPage = () => {
                                             onChange={(e) => handleCriteriaChange(ev.id, criteria.id, e.target.value)} 
                                         />
                                     </div>
-                                    <div className="flex items-center space-x-2 shrink-0">
-                                        {[1,2,3,4,5].map(score => (
-                                            <label key={score} className="inline-flex items-center">
+                                    <div className="flex items-center space-x-2 shrink-0 mt-2 sm:mt-0">
+                                        {[1, 2, 3, 4, 5].map(score => (
+                                            <label key={score} className="flex justify-center items-center w-12 md:w-16">
                                                 <input 
                                                     type="radio" 
                                                     name={`q${criteria.id}_eval${ev.id}`} 
@@ -183,12 +239,12 @@ const EvaluationMonitoringPage = () => {
                                                     checked={ev.scores[criteria.id] === score}
                                                     onChange={() => handleScoreChange(ev.id, criteria.id, score)}
                                                 />
-                                                <span className="ml-1 mr-3 text-sm">{score}</span>
                                             </label>
                                         ))}
-                                        <button className="text-gray-400 hover:text-red-500 ml-4" onClick={() => handleRemoveCriteria(ev.id, criteria.id)}><Trash2 className="w-4 h-4" /></button>
+                                        <button className="text-gray-400 hover:text-red-500 ml-4 flex-shrink-0" onClick={() => handleRemoveCriteria(ev.id, criteria.id)}><Trash2 className="w-4 h-4" /></button>
                                     </div>
                                 </div>
+                                )
                             ))}
                         </div>
 
