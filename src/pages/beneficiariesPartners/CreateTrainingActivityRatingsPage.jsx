@@ -86,7 +86,7 @@ const CreateTrainingActivityRatingsPage = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto pb-12 text-sm md:text-base">
+        <div className="max-w-5xl mx-auto pb-12 text-sm md:text-base">
             <PageHeader 
                 title="Create Training / Activity Ratings Record" 
                 subtitle="Record participation metrics, evaluation aggregated counts, and attach MOVs." 
