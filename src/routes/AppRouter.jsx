@@ -10,7 +10,7 @@ import DashboardPage from '../pages/dashboard/DashboardPage';
 
 // Project Proposals
 import ProjectProposalsPage from '../pages/projectProposals/ProjectProposalsPage';
-import CreateNewProposalPage from '../pages/projectProposals/CreateNewProposalPage';
+import CreateProjectProposalPage from '../pages/projectProposals/CreateProjectProposalPage';
 import OpenExistingProposalPage from '../pages/projectProposals/OpenExistingProposalPage';
 import TrackProposalStatusPage from '../pages/projectProposals/TrackProposalStatusPage';
 
@@ -54,7 +54,7 @@ const AppRouter = () => {
           <Route path="dashboard" element={<DashboardPage />} />
           
           <Route path="project-proposals" element={<ProjectProposalsPage />} />
-          <Route path="project-proposals/new" element={<CreateNewProposalPage />} />
+          <Route path="project-proposals/new" element={<CreateProjectProposalPage />} />
           <Route path="project-proposals/:id" element={<OpenExistingProposalPage />} />
           <Route path="project-proposals/:id/tracking" element={<TrackProposalStatusPage />} />
           

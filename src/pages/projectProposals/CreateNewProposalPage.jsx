@@ -133,10 +133,10 @@ const CreateNewProposalPage = () => {
           </div>
         </section>
 
-        {/* Section G: Personnel */}
+        {/* Section F: Personnel */}
         <section className="wireframe-card">
           <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-4">
-            <h3 className="text-lg font-bold">Section F-G: Personnel Lineup</h3>
+            <h3 className="text-lg font-bold">Section F: Personnel Lineup</h3>
             <button className="wireframe-btn text-xs flex items-center py-1" onClick={() => addRow(setPersonnel, personnel, {name:'', sex:'M', designationOffice:'', designationProject:'', timePct:'10%'})}><Plus className="w-3 h-3 mr-1"/> Add Personnel</button>
           </div>
           <div className="overflow-x-auto">
@@ -159,7 +159,7 @@ const CreateNewProposalPage = () => {
         </section>
 
         <section className="wireframe-card bg-gray-50">
-          <h3 className="text-lg font-bold border-b border-gray-200 pb-2 mb-4">Coordinator Final Checks</h3>
+          <h3 className="text-lg font-bold border-b border-gray-200 pb-2 mb-4">Section G: Coordinator Final Checks</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div><label className="wireframe-label">Attestation Notes</label><textarea className="wireframe-input" rows="2" placeholder="Remarks..."></textarea></div>
           </div>
