@@ -1,76 +1,135 @@
 import React from 'react';
 import PageHeader from '../../components/layout/PageHeader';
-import StatCard from '../../components/common/StatCard';
-import DataTable from '../../components/common/DataTable';
-import { Download, FileText } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ChevronLeft, Download, RefreshCw, CheckCircle, AlertTriangle, Filter } from 'lucide-react';
+import { mockGeneratedReports } from '../../data/mockMonitorReport';
 
 const ReportDetailPage = () => {
-  const navigate = useNavigate();
+    const { id } = useParams();
+    const navigate = useNavigate();
+    
+    // Simulate fetching the generated report structure
+    const report = mockGeneratedReports.find(r => r.id === id) || mockGeneratedReports[0];
 
-  return (
-    <div className="pb-12 text-sm md:text-base">
-      <PageHeader 
-        title="Project Report: PRJ-2026-001" 
-        subtitle="Quarterly Performance Summary and Evaluation Stats"
-        action={
-            <div className="flex space-x-2">
-                <button className="wireframe-btn flex items-center bg-white"><Download className="w-4 h-4 mr-2"/> Export PDF</button>
-                <button className="wireframe-btn flex items-center bg-white"><FileText className="w-4 h-4 mr-2"/> Export CSV</button>
+    return (
+        <div className="max-w-5xl mx-auto space-y-6 pb-12 text-sm md:text-base">
+            <div className="flex items-center space-x-2 text-sm text-gray-500 font-medium mb-4 cursor-pointer hover:text-gray-800" onClick={() => navigate('/monitor-report')}>
+                <ChevronLeft className="w-4 h-4" /> <span>Back to Monitor & Report</span>
             </div>
-        }
-      />
 
-      <div className="space-y-6">
-        {/* KPI section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <StatCard label="Overall Evaluation Score" value="4.8/5.0" subtext="Excellent Status" />
-            <StatCard label="Total Beneficiaries" value="342" subtext="Across 3 sectors" />
-            <StatCard label="Budget Utilized" value="₱120,500" subtext="85% of allocated" />
-            <StatCard label="Documents Verified" value="12/12" subtext="Complete" />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Chart placeholders */}
-            <section className="wireframe-card">
-                <h3 className="font-bold border-b border-gray-200 pb-2 mb-4">Project Performance Summary</h3>
-                <div className="bg-gray-50 border border-gray-200 border-dashed rounded h-64 flex items-center justify-center text-gray-500">
-                    [ Line Chart Placeholder: Performance over time ]
-                </div>
-            </section>
-            
-            <section className="wireframe-card">
-                <h3 className="font-bold border-b border-gray-200 pb-2 mb-4">Beneficiary Statistics</h3>
-                <div className="bg-gray-50 border border-gray-200 border-dashed rounded h-64 flex items-center justify-center text-gray-500">
-                    [ Pie Chart Placeholder: Demographic breakdown ]
-                </div>
-            </section>
-        </div>
-
-        {/* Document completeness summary */}
-        <section className="wireframe-card">
-            <h3 className="font-bold border-b border-gray-200 pb-2 mb-4">Document Completeness Summary</h3>
-            <DataTable 
-                columns={[
-                    { header: 'Requirement', accessor: 'req' },
-                    { header: 'Status', accessor: 'status' },
-                    { header: 'Date Verified', accessor: 'date' }
-                ]}
-                data={[
-                    { id: 1, req: 'F-EXT-002 Proposal', status: 'Approved', date: 'Jan 15, 2026' },
-                    { id: 2, req: 'F-EXT-010 Attendance Logs', status: 'Verified', date: 'Mar 01, 2026' },
-                    { id: 3, req: 'F-EXT-008 Summary Report', status: 'Verified', date: 'Mar 10, 2026' },
-                    { id: 4, req: 'Activity Narrative Report', status: 'Pending Review', date: 'Mar 15, 2026' }
-                ]}
+            <PageHeader 
+                title={report.reportName} 
+                subtitle={`Auto-generated ${report.reportType} · Last refreshed: ${report.dateGenerated}`}
+                action={
+                    <div className="flex space-x-2">
+                        <button className="wireframe-btn flex items-center" onClick={() => alert("Mock: Rescanning saved records using the applied filters...")}><RefreshCw className="w-4 h-4 mr-2"/> Regenerate Report</button>
+                        <button className="wireframe-btn-primary flex items-center"><Download className="w-4 h-4 mr-2"/> Export PDF</button>
+                    </div>
+                }
             />
-        </section>
 
-        <div className="flex justify-end pt-4">
-            <button className="wireframe-btn" onClick={() => navigate('/monitor-report')}>Return to Reports</button>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                {/* Metadat sidebar */}
+                <div className="md:col-span-1 space-y-6">
+                    <section className="wireframe-card bg-gray-50">
+                        <h3 className="font-bold border-b border-gray-200 pb-2 mb-3">Report Context</h3>
+                        <ul className="space-y-3">
+                            <li><span className="text-gray-500 block text-xs">Parent Project</span><span className="font-medium">{report.projectId} - {report.projectTitle}</span></li>
+                            <li><span className="text-gray-500 block text-xs">Covered Period</span><span className="font-medium">{report.coveredPeriod}</span></li>
+                            <li><span className="text-gray-500 block text-xs">Generated By</span><span className="font-medium">{report.generatedBy}</span></li>
+                            <li><span className="text-gray-500 block text-xs">Status</span><span className="font-medium inline-flex mt-1 bg-yellow-100 text-yellow-800 px-2 rounded-full border border-yellow-200">{report.status}</span></li>
+                        </ul>
+                    </section>
+
+                    <section className="wireframe-card bg-gray-50 border-dashed border-gray-300">
+                        <h3 className="font-bold border-b border-gray-200 pb-2 mb-3 flex items-center"><Filter className="w-4 h-4 mr-2 text-gray-500"/> Applied Filters</h3>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                            <li><span className="font-medium">Scope:</span> {report.appliedFilters.scope}</li>
+                            <li><span className="font-medium">Quarter:</span> {report.appliedFilters.quarter} {report.appliedFilters.year}</li>
+                            <li><span className="font-medium">Options Included:</span> {report.appliedFilters.options}</li>
+                        </ul>
+                        <p className="text-xs text-gray-400 italic mt-3">This report was algorithmically produced strictly via these filters.</p>
+                    </section>
+                </div>
+
+                {/* Main Content Modules */}
+                <div className="md:col-span-2 space-y-6">
+                    {/* A. Project Performance Summary */}
+                    <section className="wireframe-card">
+                        <h3 className="font-bold border-b border-gray-200 pb-2 mb-4 text-gray-800">A. Project Performance Summary</h3>
+                        <div className="grid grid-cols-3 gap-4 mb-4">
+                            <div className="bg-gray-50 p-3 rounded border border-gray-200 text-center">
+                                <span className="block text-2xl font-bold">{report.kpiSummary.activities}</span>
+                                <span className="text-xs text-gray-500">Activities Completed</span>
+                            </div>
+                            <div className="bg-gray-50 p-3 rounded border border-gray-200 text-center">
+                                <span className="block text-2xl font-bold">{report.kpiSummary.milestonesMet}</span>
+                                <span className="text-xs text-gray-500">Milestones Met</span>
+                            </div>
+                            <div className="bg-gray-50 p-3 rounded border border-gray-200 text-center">
+                                <span className="block text-2xl font-bold">{report.kpiSummary.budgetUtilized}</span>
+                                <span className="text-xs text-gray-500">Budget Utilized</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* B. Beneficiary Summary */}
+                    <section className="wireframe-card">
+                        <h3 className="font-bold border-b border-gray-200 pb-2 mb-4 text-gray-800 flex items-center justify-between">
+                            B. Beneficiary Summary
+                            <span className="text-xs font-normal bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-200">Synced to DB</span>
+                        </h3>
+                        <p className="mb-2"><span className="font-bold text-gray-700">Total Validated Beneficiaries (For Filtered Scope):</span> {report.beneficiarySummary.totalCount}</p>
+                        <p className="mb-2"><span className="font-bold text-gray-700">Participating Sectors:</span> {report.beneficiarySummary.sectors}</p>
+                        <button className="text-xs text-blue-600 hover:underline" onClick={() => alert("Mock: Opening linked Beneficiary registry...")}>View full beneficiary breakdown &rarr;</button>
+                    </section>
+
+                    {/* C. Evaluation Summary */}
+                    <section className="wireframe-card">
+                        <h3 className="font-bold border-b border-gray-200 pb-2 mb-4 text-gray-800 flex items-center justify-between">
+                            C. Evaluation Summary
+                            <span className="text-xs font-normal bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-200">Scanned F-EXT-007</span>
+                        </h3>
+                        <div className="flex items-center space-x-6 mb-4">
+                            <div className="text-center">
+                                <span className="block text-3xl font-bold text-green-700">{report.evaluationSummary.meanScore}/5</span>
+                                <span className="text-xs text-gray-500 font-medium tracking-wide">AVERAGE SCORED</span>
+                            </div>
+                            <div className="flex-1 space-y-1 text-sm text-gray-700">
+                                <p><span className="font-medium w-32 inline-block">Total Respondents:</span> {report.evaluationSummary.respondents}</p>
+                                <p><span className="font-medium w-32 inline-block">Adjectival Rating:</span> {report.evaluationSummary.meanScore >= 4.5 ? 'Excellent' : 'Very Satisfied'}</p>
+                            </div>
+                        </div>
+                        <button className="text-xs text-blue-600 hover:underline" onClick={() => alert("Mock: Opening source F-EXT-007 data entries...")}>View raw evaluation data &rarr;</button>
+                    </section>
+
+                    {/* D. Document Completeness Summary */}
+                    <section className="wireframe-card">
+                        <h3 className="font-bold border-b border-gray-200 pb-2 mb-4 text-gray-800">D. Document Completeness Summary</h3>
+                        
+                        {report.documentCompletenessSummary.status === 'Complete' ? (
+                            <div className="flex items-center text-emerald-700 font-medium mb-2 bg-emerald-50 p-2 border border-emerald-200 rounded">
+                                <CheckCircle className="w-5 h-5 mr-2" /> All required compliance documents are verified and linked.
+                            </div>
+                        ) : (
+                            <div className="flex items-start text-red-700 font-medium mb-3 bg-red-50 p-3 border border-red-200 rounded">
+                                <AlertTriangle className="w-5 h-5 mr-2 shrink-0 mt-0.5" /> 
+                                <div>
+                                    <p>Missing mandatory compliance documents within scope:</p>
+                                    <ul className="list-disc pl-5 mt-1 text-sm">
+                                        {report.documentCompletenessSummary.missing.map(doc => <li key={doc}>{doc}</li>)}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+                        <button className="wireframe-btn text-xs mt-2" onClick={() => alert("Mock: Scanning Document Upload Center...")}>Check Document Center</button>
+                    </section>
+
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default ReportDetailPage;
