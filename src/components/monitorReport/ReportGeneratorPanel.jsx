@@ -15,7 +15,6 @@ const ReportGeneratorPanel = () => {
         year: '2026',
         periodStart: '',
         periodEnd: '',
-        collegeUnit: 'All Units',
         activityType: 'All Types',
         includeBeneficiaryStats: true,
         includeEvaluationSummary: true,
@@ -34,7 +33,6 @@ const ReportGeneratorPanel = () => {
             year: '2026',
             periodStart: '',
             periodEnd: '',
-            collegeUnit: 'All Units',
             activityType: 'All Types',
             includeBeneficiaryStats: true,
             includeEvaluationSummary: true,
@@ -69,15 +67,7 @@ const ReportGeneratorPanel = () => {
                     </select>
                 </div>
 
-                <div>
-                    <label className="wireframe-label">College / Unit <span className="font-normal text-gray-400">(Optional)</span></label>
-                    <select className="wireframe-input bg-white" value={formData.collegeUnit} onChange={e => handleChange('collegeUnit', e.target.value)}>
-                        <option>All Units</option>
-                        <option>CBA</option>
-                        <option>CAS</option>
-                        <option>COE</option>
-                    </select>
-                </div>
+
 
                 <div>
                     <label className="wireframe-label">Quarter</label>

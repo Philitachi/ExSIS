@@ -19,7 +19,7 @@ const ReportDetailPage = () => {
 
             <PageHeader 
                 title={report.reportName} 
-                subtitle={`Auto-generated ${report.reportType} · Last refreshed: ${report.dateGenerated}`}
+                subtitle={`${report.reportType} · Last refreshed: ${report.dateGenerated}`}
                 action={
                     <div className="flex space-x-2">
                         <button className="wireframe-btn flex items-center" onClick={() => alert("Mock: Rescanning saved records using the applied filters...")}><RefreshCw className="w-4 h-4 mr-2"/> Regenerate Report</button>
@@ -46,6 +46,7 @@ const ReportDetailPage = () => {
                         <h3 className="font-bold border-b border-gray-200 pb-2 mb-3 flex items-center"><Filter className="w-4 h-4 mr-2 text-gray-500"/> Applied Filters</h3>
                         <ul className="space-y-2 text-sm text-gray-600">
                             <li><span className="font-medium">Scope:</span> {report.appliedFilters.scope}</li>
+                            <li><span className="font-medium">Activity Type:</span> {report.appliedFilters.activityType || 'All Types'}</li>
                             <li><span className="font-medium">Quarter:</span> {report.appliedFilters.quarter} {report.appliedFilters.year}</li>
                             <li><span className="font-medium">Options Included:</span> {report.appliedFilters.options}</li>
                         </ul>
