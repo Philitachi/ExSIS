@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PageHeader from '../../components/layout/PageHeader';
 import { useNavigate } from 'react-router-dom';
-import { FilePlus, FileText, Download, RefreshCw } from 'lucide-react';
+import { FileText, Download, RefreshCw } from 'lucide-react';
 import MonitorReportOverview from '../../components/monitorReport/MonitorReportOverview';
 import BeneficiaryStatisticsPanel from '../../components/monitorReport/BeneficiaryStatisticsPanel';
 import RawEvaluationTable from '../../components/monitorReport/RawEvaluationTable';
@@ -16,13 +16,6 @@ const MonitorReportPage = () => {
             <PageHeader 
                 title="Monitor & Report" 
                 subtitle="Track evaluation scores, beneficiary summaries, project metrics, and generate filtered project reports from saved system data." 
-                action={
-                    <div className="flex space-x-2">
-                        <button onClick={() => navigate('/monitor-report/evaluation/new')} className="wireframe-btn-primary flex items-center text-xs">
-                            <FilePlus className="w-3 h-3 mr-2" /> Submit F-EXT-007
-                        </button>
-                    </div>
-                }
             />
 
             <div className="wireframe-card p-0 overflow-hidden">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PageHeader from '../../components/layout/PageHeader';
 import { useNavigate } from 'react-router-dom';
-import { UploadCloud, FileText, CheckSquare, List, ChevronRight } from 'lucide-react';
+import { UploadCloud, FileText, CheckSquare, List, FilePlus, ChevronRight } from 'lucide-react';
 import DataTable from '../../components/common/DataTable';
 import StatusBadge from '../../components/common/StatusBadge';
 import { mockDocuments } from '../../data/mockDocuments';
@@ -16,7 +16,15 @@ const DocumentsUploadCenterPage = () => {
         subtitle="Centralized management for uploading, encoding, and viewing Extension reports securely."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <UploadCard
+          icon={FilePlus}
+          title="F-EXT-007"
+          subtitle="Evaluation Monitoring Form"
+          description="Encode and submit evaluation monitoring data for extension activities and beneficiaries."
+          onClick={() => navigate('/monitor-report/evaluation/new')}
+        />
+
         <UploadCard
           icon={FileText}
           title="F-EXT-008"
