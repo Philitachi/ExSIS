@@ -22,7 +22,7 @@ const DocumentsUploadCenterPage = () => {
           title="F-EXT-007"
           subtitle="Evaluation Monitoring Form"
           description="Encode and submit evaluation monitoring data for extension activities and beneficiaries."
-          onClick={() => navigate('/monitor-report/evaluation/new')}
+          onClick={() => navigate('/documents-upload-center/evaluation/new')}
         />
 
         <UploadCard

@@ -16,6 +16,7 @@ import TrackProposalStatusPage from '../pages/projectProposals/TrackProposalStat
 
 // Documents Upload Center
 import DocumentsUploadCenterPage from '../pages/documentsUploadCenter/DocumentsUploadCenterPage';
+import EvaluationMonitoringPage from '../pages/documentsUploadCenter/EvaluationMonitoringPage';
 import UploadSummaryReportPage from '../pages/documentsUploadCenter/UploadSummaryReportPage';
 import UploadAttendancePage from '../pages/documentsUploadCenter/UploadAttendancePage';
 import ActivityTrainingReportPage from '../pages/documentsUploadCenter/ActivityTrainingReportPage';
@@ -30,7 +31,6 @@ import AwardsReceivedDetailPage from '../pages/beneficiariesPartners/AwardsRecei
 
 // Monitor & Report
 import MonitorReportPage from '../pages/monitorReport/MonitorReportPage';
-import EvaluationMonitoringPage from '../pages/monitorReport/EvaluationMonitoringPage';
 import ReportDetailPage from '../pages/monitorReport/ReportDetailPage';
 
 // Schedules & Alerts
@@ -59,6 +59,7 @@ const AppRouter = () => {
           <Route path="project-proposals/:id/tracking" element={<TrackProposalStatusPage />} />
           
           <Route path="documents-upload-center" element={<DocumentsUploadCenterPage />} />
+          <Route path="documents-upload-center/evaluation/new" element={<EvaluationMonitoringPage />} />
           <Route path="documents-upload-center/summary-report/new" element={<UploadSummaryReportPage />} />
           <Route path="documents-upload-center/attendance/new" element={<UploadAttendancePage />} />
           <Route path="documents-upload-center/activity-training-report/new" element={<ActivityTrainingReportPage />} />
@@ -72,7 +73,6 @@ const AppRouter = () => {
           <Route path="beneficiaries-partners/awards-received/:id/edit" element={<CreateAwardsReceivedPage />} />
           
           <Route path="monitor-report" element={<MonitorReportPage />} />
-          <Route path="monitor-report/evaluation/new" element={<EvaluationMonitoringPage />} />
           <Route path="monitor-report/:id" element={<ReportDetailPage />} />
           
           <Route path="schedules-alerts" element={<SchedulesAlertsPage />} />

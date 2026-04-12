@@ -254,8 +254,8 @@ const EvaluationMonitoringPage = () => {
                 ))}
 
                 <div className="flex justify-end space-x-4 border-t border-gray-300 pt-6">
-                    <button className="wireframe-btn" onClick={() => navigate('/monitor-report')}>Cancel</button>
-                    <button className="wireframe-btn-primary flex items-center" onClick={() => navigate('/monitor-report')}><Send className="w-4 h-4 mr-2" /> Submit {evaluations.length} Evaluation(s)</button>
+                    <button className="wireframe-btn" onClick={() => navigate('/documents-upload-center')}>Cancel</button>
+                    <button className="wireframe-btn-primary flex items-center" onClick={() => navigate('/documents-upload-center')}><Send className="w-4 h-4 mr-2" /> Submit {evaluations.length} Evaluation(s)</button>
                 </div>
             </div>
         </div>
