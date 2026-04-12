@@ -57,11 +57,11 @@ const ProfileAccountPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="wireframe-label">Department</label>
-                            <input type="text" className="wireframe-input" defaultValue="Extension Services Office" />
+                            <input type="text" className="wireframe-input" defaultValue="Information Systems" />
                         </div>
                         <div>
                             <label className="wireframe-label">Program</label>
-                            <input type="text" className="wireframe-input" defaultValue="University-wide" />
+                            <input type="text" className="wireframe-input" defaultValue="Bachelor of Science in Information Systems" />
                         </div>
                         <div className="md:col-span-2">
                             <label className="wireframe-label">Organization / Affiliations</label>
