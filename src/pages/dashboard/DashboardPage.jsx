@@ -14,7 +14,7 @@ const DashboardPage = () => {
   return (
     <div className="space-y-6">
       <PageHeader 
-        title="Coordinator Dashboard" 
+        title="Dashboard" 
         subtitle="Welcome back, Coordinator. Here is the overview of extension activities."
         action={
           <button 
